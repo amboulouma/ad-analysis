@@ -11,4 +11,4 @@ Django application for advertisement monitoring
 
  ![](dashboard/static/screenshot.png)
 
-- **Note**: Date where we have insuffisent data have been ommited in this graph to not incomplete data in the visualization
+- **Note**: Dates where we have insuffisent data have been ommited in this graph to not have incomplete data in the visualization.
