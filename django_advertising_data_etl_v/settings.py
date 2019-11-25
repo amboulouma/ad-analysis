@@ -31,7 +31,6 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    'chartit',
     'dashboard.apps.DashboardConfig',
     'django.contrib.admin',
     'django.contrib.auth',
@@ -121,4 +120,6 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-DATE_FORMAT = 'd.m.Y'
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, "static"),
+)

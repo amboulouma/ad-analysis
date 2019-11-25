@@ -1,51 +1,67 @@
 {% load static %}
+{% load staticfiles %}
 <!DOCTYPE html>
 <html lang="en">
 
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-  <title>Adverity Challenge</title>
-  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"
-    crossorigin="anonymous">
-  <style>
-    body {
-      padding-top: 54px;
-    }
-    @media (min-width: 992px) {
-      body {
-        padding-top: 56px;
-      }
-    }
-  </style>
-   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-   <script src="https://code.highcharts.com/highcharts.js"></script>
-   {% load chartit %} 
-  {{ compaigns_chart|load_charts:"container" }}
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB"crossorigin="anonymous">
+  <link rel="stylesheet" type="text/css" href="{% static 'dashboard/style.css' %}">
+  <title>Advertisement monitor</title>
 </head>
 
 <body>
   <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
     <div class="container">
-      <a class="navbar-brand" href="#">Adverity Challenge</a>
+      <a class="navbar-brand" href="#">Adverity Dashboard</a>
   </nav>
   <div class="container">
-    <h1 class="card-title">Advertisement Dashboard</h5>
-      <p>
-        <ul>
-          <li>Select zero to N Datasources</li>
-          <li>Select zero to N Compaigns</li>
-          <small>(Where zero means all</small>
-        </ul>
-        <p>Hitting "Apply", filters the chat to show a timeseries for both Clicks and Impressions for given Datasources and Compaigns - Logical AND</p>
+    <h1 class="title ">Advertisement Dashboard</h5>
+      <div id="chart"></div>
+      <h2>Query the data</h2>
+      <form method="get" action="/search/" class="form-group justify-content-center">
+        <textarea type="text" name="query" id="id_query" value="{{ query }}" class="form-control rounded-0">SELECT * FROM dashboard_compaign WHERE clicks >= 10000</textarea>
+        <p></p>
+        <select name="type" class="browser-default custom-select">
+          <option value="sql_query" name="sql_query" selected>SQL Query</option>
+          <option value="date" name="date">Date</option>
+          <option value="data_source" name="data_source">Data Source</option>
+          <option value="compaign_type" name="compaign_type">Compaign Type</option>
+          <option value="clicks" name="clicks">Clicks</option>
+          <option value="impressions" name="impressions">Impressions</option>
+        </select>
+        <p></p>
+        <input type="submit" value="Search" class="btn btn-primary"/>
+      </form>
+      <p id="query_results">
+      {% if results %}
+      <table style="width:100%">
+        {% for result in results %}
+        <tr>
+          <th>{{ result.date }}</th>
+          <th>{{ result.data_source }}</th>
+          <th>{{ result.compaign_type }}</th>
+          <th>{{ result.clicks }}</th>
+          <th>{{ result.impressions }}</th>
+        <tr>
+        {% endfor %}
+        </table>
+      {% elif message%}
+          <h3 class='value-error'>{{message}}</h3>
+      {% endif %} 
       </p>
-    <div id="container"></div>
   </div>
+  <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/themes/ui-lightness/jquery-ui.css" type="text/css" media="all" />
+  <script src="https://d3js.org/d3.v4.min.js"></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.min.js" integrity="sha256-VazP97ZCwtekAsvgPBSUwPFKdrwD3unUfSGVYrahUqU=" crossorigin="anonymous"></script>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script src="{% static 'dashboard/script.js' %}"></script>
   <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49"
     crossorigin="anonymous"></script>
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T"
     crossorigin="anonymous"></script>
 </body>
-
 </html>

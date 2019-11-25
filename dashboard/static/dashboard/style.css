@@ -1,0 +1,37 @@
+body {
+    padding-top: 54px;
+  }
+  @media (min-width: 992px) {
+    body {
+      padding-top: 56px;
+    }
+  }
+
+  path {
+    fill: none;
+  }
+	.axis {
+	  font: 10px sans-serif;
+	}
+	.axis path,
+	.axis line {
+	  fill: none;
+	  stroke: #000;
+	  shape-rendering: crispEdges;
+	}
+
+textarea {
+  width:100%;
+}
+
+.container .form-group{
+  display:flex;
+  align-items:center;
+  flex-flow: column;
+}
+
+#chart{
+  display:flex;
+  align-items:center;
+  flex-flow: column;
+}
