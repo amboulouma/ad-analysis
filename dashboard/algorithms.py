@@ -14,7 +14,6 @@ def populate_database(filename):
     Compaign.objects.all().delete()
     csv_data = pd.read_csv(filename)
     for row in tqdm(csv_data.iterrows()):
-        date, data_source, compaign_name, clicks = "-".join(row[1][0].split('.')[::-1]), row[1][1], row[1][2], row[1][3]
-        if not np.isnan(row[1][4]): impressions = int(row[1][4])
-        else: impressions = None
-        Compaign.objects.create(date=date, compaign_name=compaign_name, data_source=data_source, clicks=clicks, impressions=impressions)
+        if not np.isnan(row[1][4]): 
+            date, data_source, compaign_name, clicks, impressions = "-".join(row[1][0].split('.')[::-1]), row[1][1], row[1][2], row[1][3], int(row[1][4])
+            Compaign.objects.create(date=date, data_source=data_source, compaign_name=compaign_name, clicks=clicks, impressions=impressions)        
