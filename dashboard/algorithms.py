@@ -7,7 +7,6 @@ from tqdm import tqdm
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db.utils import OperationalError
 
-
 from .models import Compaign
 from .constants import *
 from .utils import *

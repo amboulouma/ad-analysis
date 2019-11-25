@@ -4,7 +4,6 @@ from django.core.serializers.json import DjangoJSONEncoder
 from django.http import HttpResponse, JsonResponse
 from django.shortcuts import render, render_to_response
 
-
 from dashboard.models import Compaign
 from dashboard.algorithms import populate_database, query_database
 from dashboard.constants import DATA_DIR, DATA_FILE_NAME, BASE_DIR
